@@ -21,11 +21,14 @@ on:
   pull_request:
     branches:
       - master
+  push:
+    branches:
+      - '**'
   workflow_call:
 
 jobs:
   compile:
-    runs-on: ${{ matrix.os }}
+    runs-on: self-hosted
     strategy:
       matrix:
         os: [ ubuntu-latest, windows-latest ]
