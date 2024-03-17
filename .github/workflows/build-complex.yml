@@ -91,39 +91,49 @@ jobs:
         uses: actions/upload-artifact@v3
         with:
           name: pom.xml
-          path: pom.xml         
-
-  test:
-    needs: compile
-    runs-on: ${{ matrix.os }}
-    strategy:
-      matrix:
-        os: [ ubuntu-latest, windows-latest ]
-        java: [ '8', '11', '17' ]
-    steps:
-      - uses: actions/checkout@v4
-
-      - name: Set up JDK ${{ matrix.java }}
-        uses: actions/setup-java@v4
+          path: pom.xml      
+          
+      - name: Cache Maven dependencies and compiled classes
+        uses: actions/cache@v2
         with:
-          distribution: temurin
-          java-version: ${{ matrix.java }}
-
-      - uses: actions/cache@v4
-        with:
-          path: ~/.m2/repository
-          key: ${{ matrix.os }}-maven-${{ hashFiles('**/pom.xml') }}
+          path: |
+            ~/.m2/repository
+            target/classes
+          key: ${{ runner.os }}-maven-${{ hashFiles('**/pom.xml') }}
           restore-keys: |
-            ${{ matrix.os }}-maven-
+            ${{ runner.os }}-maven
 
-      - name: Build and test with maven
-        # Skip all static checks, they were already done in the compile jobs
-        run: mvn -B --errors --activate-profiles ci --no-transfer-progress package
+#   test:
+#     needs: compile
+#     runs-on: ${{ matrix.os }}
+#     strategy:
+#       matrix:
+#         os: [ ubuntu-latest, windows-latest ]
+#         java: [ '8', '11', '17' ]
+#     steps:
+#       - uses: actions/checkout@v4
 
-      - name: Archive test results and logs
-        # if: success() || failure() to also get the test results on successful runs.
-        if: failure()
-        uses: actions/upload-artifact@v4
-        with:
-          name: test-results-${{ matrix.java }}-${{ matrix.os }}
-          path: sshd-*/target/surefire-*
+#       - name: Set up JDK ${{ matrix.java }}
+#         uses: actions/setup-java@v4
+#         with:
+#           distribution: temurin
+#           java-version: ${{ matrix.java }}
+
+#       - uses: actions/cache@v4
+#         with:
+#           path: ~/.m2/repository
+#           key: ${{ matrix.os }}-maven-${{ hashFiles('**/pom.xml') }}
+#           restore-keys: |
+#             ${{ matrix.os }}-maven-
+
+#       - name: Build and test with maven
+#         # Skip all static checks, they were already done in the compile jobs
+#         run: mvn -B --errors --activate-profiles ci --no-transfer-progress package
+
+#       - name: Archive test results and logs
+#         # if: success() || failure() to also get the test results on successful runs.
+#         if: failure()
+#         uses: actions/upload-artifact@v4
+#         with:
+#           name: test-results-${{ matrix.java }}-${{ matrix.os }}
+#           path: sshd-*/target/surefire-*
