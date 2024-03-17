@@ -248,6 +248,22 @@
                             <forceJavacCompilerUse>true</forceJavacCompilerUse>
                             <showWarnings>true</showWarnings>
                         </configuration>
+                        <executions>
+                            <execution>
+                                <id>default-compile</id>
+                                <phase>compile</phase>
+                                <goals>
+                                    <goal>compile</goal>
+                                </goals>
+                            </execution>
+                            <execution>
+                                <id>default-testCompile</id>
+                                <phase>test-compile</phase>
+                                <goals>
+                                    <goal>testCompile</goal>
+                                </goals>
+                            </execution>
+                        </executions>
                         <dependencies>
     	                    <dependency>
             	                <groupId>org.codehaus.plexus</groupId>
