@@ -1246,7 +1246,7 @@
                     <compilerArgument>-Xlint:-serial</compilerArgument>
                     <compilerArgument>-Xlint:unchecked</compilerArgument>
                 </configuration>
-                <executions>
+                <!-- <executions>
                     <execution>
                         <id>default-compile</id>
                         <phase>compile</phase>
@@ -1261,7 +1261,7 @@
                             <goal>testCompile</goal>
                         </goals>
                     </execution>
-                </executions>
+                </executions> -->
             </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
