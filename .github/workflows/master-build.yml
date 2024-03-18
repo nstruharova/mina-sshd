@@ -1,19 +1,19 @@
-# #
-# # Licensed to the Apache Software Foundation (ASF) under one or more
-# # contributor license agreements.  See the NOTICE file distributed with
-# # this work for additional information regarding copyright ownership.
-# # The ASF licenses this file to You under the Apache License, Version 2.0
-# # (the "License"); you may not use this file except in compliance with
-# # the License.  You may obtain a copy of the License at
-# #
-# #      http://www.apache.org/licenses/LICENSE-2.0
-# #
-# # Unless required by applicable law or agreed to in writing, software
-# # distributed under the License is distributed on an "AS IS" BASIS,
-# # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-# # See the License for the specific language governing permissions and
-# # limitations under the License.
-# #
+#
+# Licensed to the Apache Software Foundation (ASF) under one or more
+# contributor license agreements.  See the NOTICE file distributed with
+# this work for additional information regarding copyright ownership.
+# The ASF licenses this file to You under the Apache License, Version 2.0
+# (the "License"); you may not use this file except in compliance with
+# the License.  You may obtain a copy of the License at
+#
+#      http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+#
 
 # name: master-build
 
@@ -26,41 +26,6 @@
 #   build:
 #     uses: ./.github/workflows/build.yml
 
-<<<<<<< HEAD
-  deploy-snapshot:
-    # Skip any commit from creating releases. The first snapshot after a new release
-    # will thus be published on the first real change on the new snapshot version, but
-    # there will be no snapshot release for just bumping the version.
-    if: "!startsWith(github.event.head_commit.message ,'[maven-release-plugin]')"
-    needs: build
-    # Serialize these jobs from different workflow runs. We do not want concurrent
-    # deployments. We don't cancel already running jobs because we do not want their
-    # workflows to report a failure. Github does not guarantee order between jobs
-    # that queue within 5 minutes, see https://docs.github.com/en/actions/using-jobs/using-concurrency .
-    # We do check below that the job is operating on the latest origin/master, and
-    # we skip deployment if not.
-    concurrency: mina-sshd-snapshot-deploy
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v3
-      
-      - name: Set up JDK
-        uses: actions/setup-java@v3
-        with:
-          distribution: temurin
-          java-version: '8'
-          # Create a ~/.m2/settings.xml referencing these environment variable names
-          server-id: 'apache.snapshots.https'
-          server-username: NEXUS_USERNAME
-          server-password: NEXUS_PASSWORD
-
-      - uses: actions/cache@v3
-        with:
-          path: ~/.m2/repository
-          key: ubuntu-latest-maven-${{ hashFiles('**/pom.xml') }}
-          restore-keys: |
-            ubuntu-latest-maven-
-=======
 #   deploy-snapshot:
 #     # Skip any commit from creating releases. The first snapshot after a new release
 #     # will thus be published on the first real change on the new snapshot version, but
@@ -94,7 +59,6 @@
 #           key: ubuntu-latest-maven-${{ hashFiles('**/pom.xml') }}
 #           restore-keys: |
 #             ubuntu-latest-maven-
->>>>>>> 9cd8e551f (Parent commit)
 
 #       - name: Check version (SNAPSHOT)
 #         # Only deploy SNAPSHOT versions. We do not use "exit 1" because we still want the workflow
