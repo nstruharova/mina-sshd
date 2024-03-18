@@ -267,6 +267,22 @@
                         <configuration>
                             <release>${java.sdk.version}</release>
                         </configuration>
+                        <executions>
+                            <execution>
+                                <id>default-compile</id>
+                                <phase>compile</phase>
+                                <goals>
+                                    <goal>compile</goal>
+                                </goals>
+                            </execution>
+                            <execution>
+                                <id>default-testCompile</id>
+                                <phase>test-compile</phase>
+                                <goals>
+                                    <goal>testCompile</goal>
+                                </goals>
+                            </execution>
+                        </executions>
                     </plugin>
                 </plugins>
             </build>
@@ -1262,7 +1278,7 @@
                     <compilerArgument>-Xlint:-serial</compilerArgument>
                     <compilerArgument>-Xlint:unchecked</compilerArgument>
                 </configuration>
-                <!-- <executions>
+                <executions>
                     <execution>
                         <id>default-compile</id>
                         <phase>compile</phase>
@@ -1277,7 +1293,7 @@
                             <goal>testCompile</goal>
                         </goals>
                     </execution>
-                </executions> -->
+                </executions>
             </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
