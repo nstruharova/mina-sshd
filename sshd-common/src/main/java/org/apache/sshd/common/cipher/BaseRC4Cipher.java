@@ -53,9 +53,4 @@ public class BaseRC4Cipher extends BaseCipher {
 
         return instance;
     }
-
-    @Override
-    public void update(byte[] input, int inputOffset, int inputLen) throws Exception {
-        getCipherInstance().update(input, inputOffset, inputLen, input, inputOffset);
-    }
 }
